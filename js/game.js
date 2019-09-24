@@ -34,7 +34,7 @@ var view = {
 	}
 
 
-}
+};
 
 /* ----------------------------- end view ------------------------------ */
 
@@ -73,14 +73,14 @@ var model = {
 					return {
 						id: id,
 						color: color,
-						stutus: 3
+						status: 3
 					};
 				}
 
 				return {
 					id: id,
 					color: color,
-					stutus: 1
+					status: 1
 				};
 			}
 
@@ -145,8 +145,8 @@ var model = {
 				position = this.createShipPos();
 			} while (this.checkRepeatPos(position));
 			this.spaceships[i].position = position;
-		}
-	},
+		};
+	}
 };
 
 
@@ -180,7 +180,7 @@ var controller = {
 			}else if(loss.status === 1){
 
 				view.showShip(loss.id, loss.color);
-				view.showMsg("Промах")
+				view.showMsg("Попадание")
 
 			}else if(typeof (loss) == "string"){
 
@@ -252,13 +252,13 @@ var controller = {
 			if (e.target.id !== ""){
 				e.target.style.backgroundColor = "inherit";
 			}
-		}:
+		};
 	},
 
 	createDataTitle: function () {
-		var elCell = document.getElementsByTagName("id");
+		var elCell = document.getElementsByTagName("td");
 
-		for(var i = 0; i <= elCell.length; i++){
+		for(var i = 0; i < elCell.length; i++){
 			if (elCell[i].id !== ""){
 				var value = elCell[i].getAttribute("id");
 				var element = elCell[i];
@@ -288,7 +288,7 @@ var controller = {
 			return false;
 		}
 	}
-}
+};
 
 /* --------------------------- end controller -------------------------- */
 
@@ -297,5 +297,40 @@ var controller = {
 
 /* --------------------- anonymous initialize function ----------------- */
 
+(function () {
+	var start = {
+		init: function () {
+			this.main();
+			this.control();
+			this.event();
+		},
+		
+		main: function () {
+			
+		},
+		
+		control: function () {
 
+			controller.createShips();
+
+			controller.createDataTitle();
+
+		},
+		
+		event: function () {
+
+			var btnShot = document.getElementById("btnShot");
+
+			btnShot.onclick = controller.hBtnClick;
+
+			var elCrdInput = document.getElementById("crdInput");
+			elCrdInput.onkeypress = controller.hKeyPress;
+
+			controller.hoverClick("area_game__table");
+
+		}
+	};
+
+	start.init();
+}());
 /* --------------------- anonymous initialize function ----------------- */
